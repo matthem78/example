@@ -1,3 +1,19 @@
+def process_metrics(metrics_file_path):
+  raw_metrics = read_raw_metrics_from_file(metrics_file_path)
+
+  formatted_metrics = []
+  for raw_metric in raw_metrics:
+    tmp_host_metrics = HostMetrics(raw_metric)
+
+    formatted_metrics.append(str(tmp_host_metrics))
+
+  return formatted_metrics
+
+def read_raw_metrics_from_file(metrics_file_path):
+  with open(metrics_file_path, 'r') as metrics_file:
+    raw_metrics = metrics_file.readlines()
+  return raw_metrics
+
 class HostMetrics(object):
   hostname = None
   metric_values = []
@@ -24,20 +40,3 @@ class HostMetrics(object):
       self.maximum(),
       self.minimum()
     )
-
-def process_metrics(metrics_file_path):
-  raw_metrics = read_raw_metrics_from_file(metrics_file_path)
-
-  formatted_metrics = []
-  for raw_metric in raw_metrics:
-    tmp_host_metrics = HostMetrics(raw_metric)
-
-    formatted_metrics.append(str(tmp_host_metrics))
-
-  return formatted_metrics
-
-def read_raw_metrics_from_file(metrics_file_path):
-  with open(metrics_file_path, 'r') as metrics_file:
-    raw_metrics = metrics_file.readlines()
-  return raw_metrics
-
