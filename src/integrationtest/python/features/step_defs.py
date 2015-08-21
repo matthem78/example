@@ -30,7 +30,4 @@ def when_i_analyze_the_file(step):
 @step(u'Then I will get the computed min, max, and avg for each host')
 def then_i_will_get_the_computed_min_max_and_avg_for_each_host(step):
   assert_that(world.processed_metrics, has_item(analyzed_test_host_metrics[0]))
-  assert_that(world.processed_metrics[1], has_item(analyzed_test_host_metrics[1]))
-
-
-
+  assert_that(world.processed_metrics, has_item(analyzed_test_host_metrics[1]))
