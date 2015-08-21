@@ -1,13 +1,19 @@
 def process_metrics(metrics_file_path):
   raw_metrics = read_raw_metrics_from_file(metrics_file_path)
 
-  formatted_metrics = []
+  calculated_host_metrics = []
   for raw_metric in raw_metrics:
     tmp_host_metrics = HostMetrics(raw_metric)
 
-    formatted_metrics.append(str(tmp_host_metrics))
+    calculated_host_metrics.append(tmp_host_metrics)
 
-  return formatted_metrics
+  sorted_calculted_host_metrics = sorted(
+    calculated_host_metrics,
+    key=lambda x: x.average(),
+    reverse=True
+  )
+
+  return '\n'.join(map(str, sorted_calculted_host_metrics))
 
 def read_raw_metrics_from_file(metrics_file_path):
   with open(metrics_file_path, 'r') as metrics_file:
