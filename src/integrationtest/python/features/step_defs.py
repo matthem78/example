@@ -6,8 +6,9 @@ import analyzer
 TEST_HOST_METRICS_FILE_PATH = '../../../target/test_host_metrics.txt'
 
 test_host_metrics = [
-  'hostA,1366829460,1366831260,60|37.0,65.0,87.0'
-#  'hostB,1366829460,1366831260,60|None,None,100.0,100.0,99.0,99.0'
+  'hostA,1366829460,1366831260,60|37.0,65.0,87.0',
+  'hostB,1366829460,1366831260,60|None,None,100.0,100.0,99.0,99.0',
+  'hostC,1366829460,1366831260,60|100.0,100.0'
 ]
 analyzed_test_host_metrics = [
   'hostA: Average: 63.0 Max: 87.0 Min: 37.0',
@@ -31,3 +32,9 @@ def when_i_analyze_the_file(step):
 def then_i_will_get_the_computed_min_max_and_avg_for_each_host(step):
   assert_that(world.processed_metrics, has_item(analyzed_test_host_metrics[0]))
   assert_that(world.processed_metrics, has_item(analyzed_test_host_metrics[1]))
+
+@step(u'Then I will see the analyzed metrics in descending order by average')
+def then_i_will_see_the_analyzed_metrics_in_descending_order_by_average(step):
+  assert_that(world.processed_metrics[0], starts_with('hostC'))
+  assert_that(world.processed_metrics[1], starts_with('hostB'))
+  assert_that(world.processed_metrics[2], starts_with('hostA'))
