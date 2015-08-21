@@ -38,7 +38,6 @@ pyb install_dependencies
 # Run BDD tests
 pyb -v
 
-# Optionally: run the script against the provided data file
-src/main/python/analyzer/main.py -f mt_test_data.txt
+# Optionally: run the BDD-tested script
+target/dist/example-1.0.dev0/analyzer/main.py -f mt_test_data.txt
 ```
-
