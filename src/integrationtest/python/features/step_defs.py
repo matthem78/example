@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
+
 from lettuce import *
 from hamcrest import *
+
 import analyzer.main
 
 TEST_HOST_METRICS_FILE_PATH = '../../../target/test_host_metrics.txt'
@@ -16,6 +19,8 @@ analyzed_test_host_metrics = [
   'hostC: Average: 100.0 Max: 100.0 Min: 100.0'
 ]
 
+# Create a temporary test data file so build is fully repeatable and doesn't have
+# dependency on pre-existing data file
 @step(u'Given a host metric file')
 def given_a_host_metric_file(step):
   test_host_metrics_file = open(TEST_HOST_METRICS_FILE_PATH, 'w')
@@ -33,6 +38,7 @@ def when_i_analyze_the_file(step):
 def then_i_will_get_the_computed_min_max_and_avg_for_each_host(step):
   assert True, (world.processed_metrics.find(analyzed_test_host_metrics[0]) != -1)
   assert True, (world.processed_metrics.find(analyzed_test_host_metrics[1]) != -1)
+  cleanup()
 
 @step(u'Then I will see the analyzed metrics in descending order by average')
 def then_i_will_see_the_analyzed_metrics_in_descending_order_by_average(step):
@@ -40,3 +46,7 @@ def then_i_will_see_the_analyzed_metrics_in_descending_order_by_average(step):
   assert_that(sorted_metrics_as_arr[0], starts_with('hostC'))
   assert_that(sorted_metrics_as_arr[1], starts_with('hostA'))
   assert_that(sorted_metrics_as_arr[2], starts_with('hostB'))
+  cleanup()
+
+def cleanup():
+  os.remove(TEST_HOST_METRICS_FILE_PATH)  
