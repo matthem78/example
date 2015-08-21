@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from lettuce import *
 from hamcrest import *
-import analyzer
-from string import *
+import analyzer.main
 
 TEST_HOST_METRICS_FILE_PATH = '../../../target/test_host_metrics.txt'
 
@@ -28,7 +27,7 @@ def given_a_host_metric_file(step):
 
 @step(u'When I analyze the file')
 def when_i_analyze_the_file(step):
-  world.processed_metrics = analyzer.process_metrics(TEST_HOST_METRICS_FILE_PATH)  
+  world.processed_metrics = analyzer.main.process_metrics(TEST_HOST_METRICS_FILE_PATH)
 
 @step(u'Then I will get the computed min, max, and avg for each host')
 def then_i_will_get_the_computed_min_max_and_avg_for_each_host(step):
