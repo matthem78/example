@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import os.path
+from optparse import OptionParser
 
 def process_metrics(metrics_file_path):
   raw_metrics = read_raw_metrics_from_file(metrics_file_path)
@@ -55,7 +57,20 @@ class HostMetrics(object):
     )
 
 def main():
-  print 'hello'
+  parser = OptionParser()
+  parser.add_option('-f', '--file',
+    dest='metrics_file_path',
+    default=None)
+
+  (options, args) = parser.parse_args()
+
+  if options.metrics_file_path is None:
+    parser.error('Path to metrics file was not given')
+
+  if not os.path.isfile(options.metrics_file_path):
+    parser.error('Path provided must be to a valid file')
+
+  print process_metrics(options.metrics_file_path)
 
 if __name__ == '__main__':
   main()
