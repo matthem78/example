@@ -10,8 +10,5 @@ default_task = "publish"
 @init
 def initialize(project):
     project.build_depends_on('mockito')
-#    project.build_depends_on('HTTPretty')
     project.build_depends_on('lettuce')
     project.build_depends_on('PyHamcrest')
-#    project.build_depends_on('PyYAML')
-#    project.build_depends_on('requests')
