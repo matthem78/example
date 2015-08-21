@@ -11,7 +11,7 @@ distro via:
 # where <path_to_data_file> is the host metrics data file
 ```
 
-# Setting up Python environment to run BDD tests
+# Using Docker to setup Python environment to run BDD tests
 This script was developed using BDD via the python equivalent of Cucumber
 called 'lettuce'.  Also, PyBuilder was used to build the project and run
 the BDD tests.  PyBuilder is a maven-like tool for Python.
