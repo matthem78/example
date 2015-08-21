@@ -21,8 +21,13 @@ class HostMetrics(object):
   def __init__(self, raw_metric):
     self.hostname = raw_metric.split(',')[0]
 
-    metric_values_as_str = raw_metric.strip().split('|')[1].split(',')
-    self.metric_values = [float(metric_value) for metric_value in metric_values_as_str]
+    metric_values_as_str_arr = raw_metric.strip().split('|')[1].split(',')
+    self.metric_values = []
+    for metric_value in metric_values_as_str_arr:
+      try:
+        self.metric_values.append(float(metric_value))
+      except ValueError:
+        continue
 
   def average(self):
     return sum(self.metric_values) / float(len(self.metric_values))
