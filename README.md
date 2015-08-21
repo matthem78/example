@@ -20,12 +20,14 @@ These tools require your Python 2.7 environment to have some additional
 dependencies installed.  A Dockerfile was created that will provide an appropriate
 Python environment for trying out the tests.
 
-With 'docker' installed, you can run the following commands to run PyBuilder
+With docker installed, you can run the following commands to run PyBuilder
 and the BDD tests:
 
 ```
 git clone git@github.com:matthem78/example.git
 cd example
+
+# the following may take a few minutes to download
 docker build -t matthewm78/example .
 docker run -v $(pwd):/example -it matthewm78/example /bin/bash
 
