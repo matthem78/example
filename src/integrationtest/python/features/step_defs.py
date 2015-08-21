@@ -6,8 +6,8 @@ import analyzer
 TEST_HOST_METRICS_FILE_PATH = '../../../target/test_host_metrics.txt'
 
 test_host_metrics = [
-  'hostA,1366829460,1366831260,60|37.0,65.0,87.0',
-  'hostB,1366829460,1366831260,60|None,None,100.0,100.0,99.0,99.0'
+  'hostA,1366829460,1366831260,60|37.0,65.0,87.0'
+#  'hostB,1366829460,1366831260,60|None,None,100.0,100.0,99.0,99.0'
 ]
 analyzed_test_host_metrics = [
   'hostA: Average: 63.0 Max: 87.0 Min: 37.0',

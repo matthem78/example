@@ -1,9 +1,12 @@
 class HostMetrics(object):
   hostname = None
   metric_values = []
-  average = 0.0
-  maximum = 0.0
-  minimum = 0.0
+
+  def __init__(self, raw_metric):
+    self.hostname = raw_metric.split(',')[0]
+
+    metric_values_as_str = raw_metric.strip().split('|')[1].split(',')
+    self.metric_values = [float(metric_value) for metric_value in metric_values_as_str]
 
   def average(self):
     return sum(self.metric_values) / float(len(self.metric_values))
@@ -23,19 +26,18 @@ class HostMetrics(object):
     )
 
 def process_metrics(metrics_file_path):
-  with open(metrics_file_path, 'r') as metrics_file:
-    raw_metrics = metrics_file.readlines()
+  raw_metrics = read_raw_metrics_from_file(metrics_file_path)
 
   formatted_metrics = []
   for raw_metric in raw_metrics:
-    m = HostMetrics()
+    tmp_host_metrics = HostMetrics(raw_metric)
 
-    m.hostname = raw_metric.split(',')[0]
-
-    metric_values_as_str = raw_metric.strip().split('|')[1].split(',')
-    m.metric_values = [float(metric_value) for metric_value in metric_values_as_str]
-
-    formatted_metrics.append(str(m))
+    formatted_metrics.append(str(tmp_host_metrics))
 
   return formatted_metrics
+
+def read_raw_metrics_from_file(metrics_file_path):
+  with open(metrics_file_path, 'r') as metrics_file:
+    raw_metrics = metrics_file.readlines()
+  return raw_metrics
 
